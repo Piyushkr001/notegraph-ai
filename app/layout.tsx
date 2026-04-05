@@ -3,6 +3,8 @@ import { Exo, Geist, Geist_Mono, Saira_Stencil_One } from "next/font/google";
 import "./globals.css";
 import Navbar from "./_shared/Navbar";
 import Footer from "./_shared/Footer";
+import { ThemeProvider } from "@/components/theme-provider"
+import { ClerkProvider } from "@clerk/nextjs";
 
 const exo = Exo({
   subsets: ["latin"],
@@ -22,13 +24,22 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="en" suppressHydrationWarning
       className={`${exo.className} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
-        <Navbar />
-        {children}
-        <Footer />
+      <body suppressHydrationWarning className="min-h-full flex flex-col">
+        <ClerkProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Navbar />
+            {children}
+            <Footer />
+          </ThemeProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

@@ -1,9 +1,11 @@
 "use client";
 
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Menu } from "lucide-react";
+import { useUser, UserButton } from "@clerk/nextjs";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -14,16 +16,26 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { ModeToggle } from "@/components/ModeToggle";
 
 const navLinks = [
   { name: "Home", href: "/" },
   { name: "Features", href: "/features" },
   { name: "How It Works", href: "/how-it-works" },
-  { name: "Dashboard", href: "/dashboard" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const { user, isLoaded, isSignedIn } = useUser();
+
+  useEffect(() => {
+    if (!isLoaded) return;
+
+    if (isSignedIn && (pathname === "/sign-in" || pathname === "/sign-up")) {
+      router.push("/dashboard");
+    }
+  }, [isLoaded, isSignedIn, pathname, router]);
 
   const isActiveLink = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -32,16 +44,16 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Left Section */}
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex cursor-pointer items-center gap-3">
             <Image
               src="/Images/Logo/logo_light.svg"
               alt="NoteGraph AI"
               width={160}
               height={40}
-              className="h-16 w-auto dark:hidden"
+              className="h-18 w-auto dark:hidden"
               priority
             />
             <Image
@@ -49,13 +61,15 @@ export default function Navbar() {
               alt="NoteGraph AI"
               width={160}
               height={40}
-              className="hidden h-16 w-auto dark:block"
+              className="hidden h-18 w-auto dark:block"
               priority
             />
           </Link>
+        </div>
 
-          {/* Desktop Nav */}
-          <nav className="hidden items-center gap-2 md:flex">
+        {/* Desktop Nav */}
+        <nav className="hidden flex-1 justify-center md:flex">
+          <div className="flex items-center gap-2">
             {navLinks.map((link) => {
               const active = isActiveLink(link.href);
 
@@ -74,29 +88,46 @@ export default function Navbar() {
                 </Link>
               );
             })}
-          </nav>
-        </div>
+          </div>
+        </nav>
 
         {/* Right Section */}
         <div className="hidden items-center gap-3 md:flex">
-          <Link href="/login">
-            <Button variant="ghost" className="font-medium">
-              Login
-            </Button>
-          </Link>
+          <ModeToggle />
 
-          <Link href="/sign-up">
-            <Button className="font-medium">Sign Up</Button>
-          </Link>
+          {!isLoaded ? null : isSignedIn ? (
+            <div className="flex items-center gap-3">
+              <Button
+                variant="default"
+                className="font-medium"
+                onClick={() => router.push("/dashboard")}
+              >
+                Dashboard
+              </Button>
+              <UserButton/>
+            </div>
+          ) : (
+            <>
+              <Link href="/sign-in">
+                <Button variant="ghost" className="font-medium">
+                  Login
+                </Button>
+              </Link>
+
+              <Link href="/sign-up">
+                <Button className="font-medium">Sign Up</Button>
+              </Link>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu */}
-        <div className="flex items-center md:hidden">
+        <div className="flex items-center gap-2 md:hidden">
+          <ModeToggle />
+
           <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" aria-label="Open Menu">
-                <Menu className="h-5 w-5" />
-              </Button>
+            <SheetTrigger render={<Button variant="ghost" size="icon" aria-label="Open Menu" />}>
+              <Menu className="h-5 w-5" />
             </SheetTrigger>
 
             <SheetContent side="right" className="w-[300px] sm:w-[360px]">
@@ -104,18 +135,20 @@ export default function Navbar() {
                 <SheetTitle className="flex items-center">
                   <Link href="/" className="flex items-center gap-3">
                     <Image
-                      src="/logo_light.svg"
+                      src="/Images/Logo/logo_light.svg"
                       alt="NoteGraph AI"
                       width={150}
                       height={36}
                       className="h-8 w-auto dark:hidden"
+                      style={{ width: "auto", height: "auto" }}
                     />
                     <Image
-                      src="/logo_dark.svg"
+                      src="/Images/Logo/logo_dark.svg"
                       alt="NoteGraph AI"
                       width={150}
                       height={36}
                       className="hidden h-8 w-auto dark:block"
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </Link>
                 </SheetTitle>
@@ -144,15 +177,32 @@ export default function Navbar() {
                 </nav>
 
                 <div className="mt-8 flex flex-col gap-3">
-                  <Link href="/login" className="w-full">
-                    <Button variant="outline" className="w-full">
-                      Login
-                    </Button>
-                  </Link>
+                  {!isLoaded ? null : isSignedIn ? (
+                    <>
+                      <Button
+                        className="w-full"
+                        onClick={() => router.push("/dashboard")}
+                      >
+                        Dashboard
+                      </Button>
 
-                  <Link href="/sign-up" className="w-full">
-                    <Button className="w-full">Sign Up</Button>
-                  </Link>
+                      <div className="flex justify-center pt-2">
+                        <UserButton />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <Link href="/sign-in" className="w-full">
+                        <Button variant="outline" className="w-full">
+                          Login
+                        </Button>
+                      </Link>
+
+                      <Link href="/sign-up" className="w-full">
+                        <Button className="w-full">Sign Up</Button>
+                      </Link>
+                    </>
+                  )}
                 </div>
               </div>
             </SheetContent>
