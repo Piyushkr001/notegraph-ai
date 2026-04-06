@@ -4,6 +4,7 @@ import { ArrowRight, Brain, Sparkles, Notebook, Network, ChevronRight } from 'lu
 import { cn } from '@/lib/utils';
 import { AnimatedGradientText } from '@/components/ui/animated-gradient-text';
 import { SparklesText } from '@/components/ui/sparkles-text';
+import Link from 'next/link';
 
 function Landing() {
   return (
@@ -51,12 +52,17 @@ function Landing() {
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full sm:w-auto">
-          <Button size="lg" className="h-12 px-8 text-base shadow-lg hover:shadow-xl transition-all rounded-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0 scale-100 hover:scale-105">
-            Start Building Your Brain <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-          <Button size="lg" variant="outline" className="h-12 px-8 text-base rounded-full bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all scale-100 hover:scale-105">
-            See How it Works
-          </Button>
+          <Link href="/sign-up">
+            <Button size="lg" className="h-12 px-8 text-base shadow-lg hover:shadow-xl transition-all rounded-full bg-linear-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0 scale-100 hover:scale-105">
+              Start Building Your Brain <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </Link>
+
+          <Link href="/how-it-works">
+            <Button size="lg" variant="outline" className="h-12 px-8 text-base rounded-full bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-all scale-100 hover:scale-105">
+              See How it Works
+            </Button>
+          </Link>
         </div>
 
         {/* Features Highlights */}

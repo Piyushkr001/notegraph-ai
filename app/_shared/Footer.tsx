@@ -22,10 +22,10 @@ const resourceLinks = [
 ];
 
 const socialLinks = [
-  { name: "Instagram", href: "https://instagram.com", icon: InstagramLogoIcon },
-  { name: "Facebook", href: "https://facebook.com", icon: FacebookLogoIcon },
-  { name: "LinkedIn", href: "https://linkedin.com", icon: LinkedinLogoIcon },
-  { name: "Twitter", href: "https://twitter.com", icon: XLogoIcon },
+  { name: "Instagram", href: "https://instagram.com", icon: InstagramLogoIcon, color: "#E1306C" },
+  { name: "Facebook", href: "https://facebook.com", icon: FacebookLogoIcon, color: "#1877F2" },
+  { name: "LinkedIn", href: "https://linkedin.com", icon: LinkedinLogoIcon, color: "#0A66C2" },
+  { name: "X", href: "https://x.com", icon: XLogoIcon, color: "#000000" },
 ];
 
 export default function Footer({ hideOnDashboard = true }: { hideOnDashboard?: boolean } = {}) {
@@ -142,7 +142,7 @@ export default function Footer({ hideOnDashboard = true }: { hideOnDashboard?: b
                         className="rounded-full"
                         aria-label={item.name}
                       >
-                        <Icon className="h-4 w-4" />
+                        <Icon className="h-4 w-4" color={item.color} />
                       </Button>
                     </Link>
                   );

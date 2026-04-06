@@ -1,6 +1,11 @@
 import { UserProfile } from '@clerk/nextjs'
 import React from 'react'
 
+export const metadata = {
+    title: "Profile - Notegraph AI",
+    description: "Profile - Notegraph AI",
+};
+
 function Settings() {
     return (
         <div>
@@ -11,7 +16,7 @@ function Settings() {
                         <p className="text-muted-foreground mt-1">
                             Manage your account profile and preferences.
                         </p>
-                        <div className='mt-10 flex items-center justify-center'>
+                        <div className='mt-4 p-5 flex items-center justify-center'>
                             <UserProfile routing='hash' />
                         </div>
                     </div>
