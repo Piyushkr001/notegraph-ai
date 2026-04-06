@@ -2,6 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { Mail, ArrowUpRight } from "lucide-react";
+import { usePathname } from "next/navigation";
 import { FacebookLogoIcon, InstagramLogoIcon, LinkedinLogoIcon, XLogoIcon } from "@phosphor-icons/react";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
@@ -28,6 +29,12 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const pathname = usePathname();
+  
+  if (pathname?.startsWith("/dashboard")) {
+    return null;
+  }
+
   return (
     <footer className="w-full border-t bg-background">
       <div className="mx-auto flex max-w-6xl flex-col px-4 py-12 sm:px-6 lg:px-8">
