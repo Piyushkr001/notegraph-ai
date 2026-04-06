@@ -1,6 +1,11 @@
 import { SidebarProvider, SidebarInset, SidebarTrigger } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "@/app/dashboard/_shared/Sidebar";
-import Footer from "../_shared/Footer";
+import Footer from "@/app/_shared/Footer";
+
+export const metadata = {
+  title: "Dashboard - NoteGraph AI",
+  description: "Dashboard - NoteGraph AI",
+};
 
 export default function DashboardLayout({
   children,
@@ -16,9 +21,10 @@ export default function DashboardLayout({
             <SidebarTrigger className="-ml-1" />
             <span className="font-semibold">Dashboard Menu</span>
           </header>
-          <main className="mx-auto w-full max-w-7xl p-4 md:p-8">
+          <main className="mx-auto w-full max-w-7xl min-h-screen flex-1 p-4 md:p-8">
             {children}
           </main>
+          <Footer hideOnDashboard={false} />
         </SidebarInset>
       </div>
     </SidebarProvider>

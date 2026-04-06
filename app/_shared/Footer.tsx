@@ -28,10 +28,10 @@ const socialLinks = [
   { name: "Twitter", href: "https://twitter.com", icon: XLogoIcon },
 ];
 
-export default function Footer() {
+export default function Footer({ hideOnDashboard = true }: { hideOnDashboard?: boolean } = {}) {
   const pathname = usePathname();
   
-  if (pathname?.startsWith("/dashboard")) {
+  if (hideOnDashboard && pathname?.startsWith("/dashboard")) {
     return null;
   }
 
