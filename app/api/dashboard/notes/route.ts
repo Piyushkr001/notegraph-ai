@@ -5,6 +5,8 @@ import {
   usersTable,
   notesTable,
   tagsTable,
+  topicsTable,
+  relationshipsTable,
   activityEventsTable,
 } from "@/config/schema";
 import { eq, desc, and, ilike, sql, inArray } from "drizzle-orm";
@@ -128,6 +130,7 @@ export async function POST(req: NextRequest) {
     if (!title?.trim()) {
       return NextResponse.json({ error: "Title is required" }, { status: 400 });
     }
+
     if (!rawContent?.trim()) {
       return NextResponse.json({ error: "Content is required" }, { status: 400 });
     }
@@ -146,16 +149,35 @@ export async function POST(req: NextRequest) {
       })
       .returning();
 
-    // Log activity event
     await db.insert(activityEventsTable).values({
       userId: dbUser.id,
       noteId: note.id,
       activityType: "note_created",
       title: "Note Created",
       description: `"${note.title}" was added to your workspace.`,
+      metadata: JSON.stringify({
+        noteType,
+        wordCount,
+      }),
     });
 
-    return NextResponse.json(note, { status: 201 });
+    // Trigger AI processing immediately
+    const { processNoteById } = await import("@/lib/ai/note-processor");
+
+    const processingResult = await processNoteById({
+      noteId: note.id,
+      userId: dbUser.id,
+    });
+
+    return NextResponse.json(
+      {
+        noteId: note.id,
+        created: true,
+        processed: true,
+        result: processingResult,
+      },
+      { status: 201 }
+    );
   } catch (error) {
     console.error("[NOTES_POST]", error);
     return new NextResponse("Internal Server Error", { status: 500 });
