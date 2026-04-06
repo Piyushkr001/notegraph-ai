@@ -294,7 +294,7 @@ function NoteCard({
             {note.wordCount.toLocaleString()} words
           </span>
 
-          <div className="flex items-center gap-1 opacity-0 transition-opacity group-hover:opacity-100">
+          <div className="flex items-center gap-1 opacity-100 md:opacity-0 transition-opacity md:group-hover:opacity-100">
             <Button variant="ghost" size="icon" className="h-7 w-7" title="View note">
               <Link href={`/dashboard/notes/${note.id}`}>
                 <FileText className="h-3.5 w-3.5" />
