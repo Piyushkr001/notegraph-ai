@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, Settings, Activity } from "lucide-react";
+import { LayoutDashboard, FileText, Settings, Activity, User } from "lucide-react";
 
 import {
   Sidebar,
@@ -20,7 +20,7 @@ const dashboardNav = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { name: "My Notes", href: "/dashboard/notes", icon: FileText },
   { name: "Activity", href: "/dashboard/activity", icon: Activity },
-  { name: "Settings", href: "/dashboard/settings", icon: Settings },
+  { name: "Profile", href: "/dashboard/profile", icon: User },
 ];
 
 export function DashboardSidebar() {
