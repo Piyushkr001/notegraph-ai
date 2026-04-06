@@ -5,6 +5,8 @@ import Navbar from "./_shared/Navbar";
 import Footer from "./_shared/Footer";
 import { ThemeProvider } from "@/components/theme-provider"
 import { ClerkProvider } from "@clerk/nextjs";
+import Provider from "./provider";
+import { Toaster } from "react-hot-toast";
 
 const exo = Exo({
   subsets: ["latin"],
@@ -35,9 +37,12 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar />
-            {children}
-            <Footer />
+            <Provider>
+              <Navbar />
+              {children}
+              <Footer />
+              <Toaster  position="bottom-right" />
+            </Provider>
           </ThemeProvider>
         </ClerkProvider>
       </body>
