@@ -34,8 +34,11 @@ export default function Footer({ hideOnDashboard = true }: { hideOnDashboard?: b
   }
 
   return (
-    <footer className="w-full border-t bg-background">
-      <div className="mx-auto flex max-w-6xl flex-col px-4 py-12 sm:px-6 lg:px-8">
+    <footer className="w-full border-t border-gray-200/50 dark:border-gray-800/50 bg-white/70 dark:bg-gray-950/70 backdrop-blur-xl supports-backdrop-filter:bg-white/50 dark:supports-backdrop-filter:bg-gray-950/50 relative overflow-hidden transition-colors">
+      <div className="absolute top-0 right-[10%] w-[400px] h-[400px] bg-purple-400/10 dark:bg-purple-900/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 left-[10%] w-[300px] h-[300px] bg-blue-400/10 dark:bg-blue-900/10 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="mx-auto flex max-w-6xl flex-col px-4 py-16 sm:px-6 lg:px-8 relative z-10">
         {/* Top Section */}
         <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between">
           {/* Brand / Intro */}
@@ -63,13 +66,13 @@ export default function Footer({ hideOnDashboard = true }: { hideOnDashboard?: b
               relationships.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="flex flex-wrap items-center gap-3 pt-4">
               <Link href="/sign-up">
-                <Button className="rounded-full">Get Started</Button>
+                <Button className="rounded-full bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white border-0 shadow-md hover:shadow-lg transition-all scale-100 hover:scale-105">Get Started</Button>
               </Link>
 
               <Link href="/features">
-                <Button variant="outline" className="rounded-full">
+                <Button variant="outline" className="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all scale-100 hover:scale-105 backdrop-blur-sm bg-white/50 dark:bg-transparent">
                   Explore Features
                   <ArrowUpRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -87,7 +90,7 @@ export default function Footer({ hideOnDashboard = true }: { hideOnDashboard?: b
                   <Link
                     key={link.name}
                     href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-sm text-muted-foreground transition-all duration-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:translate-x-1 inline-block w-max"
                   >
                     {link.name}
                   </Link>
@@ -103,7 +106,7 @@ export default function Footer({ hideOnDashboard = true }: { hideOnDashboard?: b
                   <Link
                     key={link.name}
                     href={link.href}
-                    className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                    className="text-sm text-muted-foreground transition-all duration-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:translate-x-1 inline-block w-max"
                   >
                     {link.name}
                   </Link>
@@ -117,7 +120,7 @@ export default function Footer({ hideOnDashboard = true }: { hideOnDashboard?: b
 
               <Link
                 href="mailto:hello@notegraph.ai"
-                className="flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                className="flex items-center gap-2 text-sm text-muted-foreground transition-all duration-200 hover:text-indigo-600 dark:hover:text-indigo-400 hover:translate-x-1 w-max"
               >
                 <Mail className="h-4 w-4" />
                 hello@notegraph.ai
@@ -137,7 +140,7 @@ export default function Footer({ hideOnDashboard = true }: { hideOnDashboard?: b
                       <Button
                         variant="outline"
                         size="icon"
-                        className="rounded-full"
+                        className="rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-all duration-300 hover:scale-110 hover:-translate-y-1 bg-white/50 dark:bg-transparent"
                         aria-label={item.name}
                       >
                         <Icon className="h-4 w-4" color={item.color} />

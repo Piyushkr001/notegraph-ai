@@ -45,7 +45,7 @@ export default function Navbar() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/80">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200/50 dark:border-gray-800/50 bg-white/70 dark:bg-gray-950/70 backdrop-blur-xl supports-backdrop-filter:bg-white/50 dark:supports-backdrop-filter:bg-gray-950/50 transition-colors">
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Left Section */}
         <div className="flex items-center gap-8">
@@ -80,10 +80,10 @@ export default function Navbar() {
                   key={link.href}
                   href={link.href}
                   className={cn(
-                    "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                    "rounded-full px-4 py-2 text-sm font-medium transition-all duration-200",
                     active
-                      ? "bg-primary/10 text-primary"
-                      : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                      ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-semibold shadow-sm"
+                      : "text-muted-foreground hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-foreground hover:scale-105"
                   )}
                 >
                   {link.name}
@@ -98,10 +98,9 @@ export default function Navbar() {
           <ModeToggle />
 
           {!isLoaded ? null : isSignedIn ? (
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-4">
               <Button
-                variant="default"
-                className="font-medium"
+                className="font-medium rounded-full bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white border-0 shadow-md hover:shadow-lg transition-all"
                 onClick={() => router.push("/dashboard")}
               >
                 Dashboard
@@ -111,13 +110,13 @@ export default function Navbar() {
           ) : (
             <>
               <Link href="/sign-in">
-                <Button variant="ghost" className="font-medium">
+                <Button variant="ghost" className="font-medium rounded-full hover:bg-gray-100 dark:hover:bg-gray-800">
                   Login
                 </Button>
               </Link>
 
               <Link href="/sign-up">
-                <Button className="font-medium">Sign Up</Button>
+                <Button className="font-medium rounded-full bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white border-0 shadow-md hover:shadow-lg transition-all scale-100 hover:scale-105">Sign Up</Button>
               </Link>
             </>
           )}
@@ -166,10 +165,10 @@ export default function Navbar() {
                         key={link.href}
                         href={link.href}
                         className={cn(
-                          "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                          "rounded-xl px-4 py-3 text-base font-medium transition-all duration-200",
                           active
-                            ? "bg-primary/10 text-primary"
-                            : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                            ? "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-semibold shadow-sm"
+                            : "text-muted-foreground hover:bg-gray-100 dark:hover:bg-gray-900 hover:text-foreground"
                         )}
                       >
                         {link.name}
@@ -182,7 +181,7 @@ export default function Navbar() {
                   {!isLoaded ? null : isSignedIn ? (
                     <>
                       <Button
-                        className="w-full"
+                        className="w-full rounded-full h-12 bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white border-0 shadow-md"
                         onClick={() => router.push("/dashboard")}
                       >
                         Dashboard
@@ -195,13 +194,13 @@ export default function Navbar() {
                   ) : (
                     <>
                       <Link href="/sign-in" className="w-full">
-                        <Button variant="outline" className="w-full">
+                        <Button variant="outline" className="w-full rounded-full h-12 bg-transparent border-gray-200 dark:border-gray-800 hover:bg-gray-100 dark:hover:bg-gray-900">
                           Login
                         </Button>
                       </Link>
 
                       <Link href="/sign-up" className="w-full">
-                        <Button className="w-full">Sign Up</Button>
+                        <Button className="w-full rounded-full h-12 bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white border-0 shadow-md">Sign Up</Button>
                       </Link>
                     </>
                   )}

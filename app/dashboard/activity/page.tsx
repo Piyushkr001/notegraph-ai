@@ -108,8 +108,10 @@ export default function ActivityLogPage() {
     <div className="flex flex-1 flex-col space-y-6">
       <div className="flex flex-col space-y-4 md:flex-row md:items-center md:justify-between md:space-y-0">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Activity Log</h1>
-          <p className="text-muted-foreground mt-1">
+          <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white mix-blend-normal">
+            Activity.
+          </h1>
+          <p className="text-muted-foreground font-medium mt-1">
             Track everything happening in your workspace.
           </p>
         </div>
@@ -132,8 +134,8 @@ export default function ActivityLogPage() {
         </div>
       </div>
 
-      <Card>
-        <CardHeader className="border-b px-6 py-4">
+      <Card className="border overflow-hidden bg-white/70 dark:bg-gray-900/60 backdrop-blur-xl shadow-lg transition-all duration-300">
+        <CardHeader className="border-b border-gray-200/50 dark:border-gray-800/50 px-6 py-5 bg-white/40 dark:bg-gray-900/40">
           <CardTitle>Event History</CardTitle>
           <CardDescription>
             {pagination?.total ? `${pagination.total} total events` : "Loading events..."}
@@ -153,8 +155,8 @@ export default function ActivityLogPage() {
               ))}
             </div>
           ) : activities.length === 0 ? (
-            <div className="flex min-h-[300px] flex-col items-center justify-center space-y-3 p-8 text-center bg-muted/20">
-              <div className="rounded-full bg-muted p-4">
+            <div className="flex min-h-[300px] flex-col items-center justify-center space-y-3 p-8 text-center bg-transparent">
+              <div className="rounded-full bg-white/50 dark:bg-gray-800/50 p-4 border border-gray-200 dark:border-gray-800 backdrop-blur-sm">
                 <Activity className="h-8 w-8 text-muted-foreground" />
               </div>
               <h3 className="text-lg font-semibold">No activity found</h3>
@@ -169,7 +171,7 @@ export default function ActivityLogPage() {
             </div>
           ) : (
             <div className="divide-y relative">
-              <div className="absolute left-8 top-0 bottom-0 w-px bg-border/50 hidden md:block" />
+              <div className="absolute left-[38px] top-6 bottom-6 w-px bg-indigo-100 dark:bg-indigo-900/50 hidden md:block z-0" />
               {activities.map((activity) => {
                 const colorClass = getActivityColor(activity.activityType);
                 let metadataObj = null;
@@ -180,7 +182,7 @@ export default function ActivityLogPage() {
                 return (
                   <div
                     key={activity.id}
-                    className="group flex flex-col md:flex-row gap-4 p-4 md:p-6 transition-colors hover:bg-muted/30 relative"
+                    className="group flex flex-col md:flex-row gap-6 p-4 md:p-6 transition-all duration-300 hover:bg-white/50 dark:hover:bg-gray-950/30 relative border-l-4 border-transparent hover:border-indigo-500 z-10"
                   >
                     <div className="flex shrink-0 z-10">
                       <div className={`mt-1 flex h-10 w-10 items-center justify-center rounded-full border shadow-sm ${colorClass}`}>
@@ -220,8 +222,8 @@ export default function ActivityLogPage() {
 
         {/* Pagination Footer */}
         {pagination && pagination.totalPages > 1 && (
-          <div className="border-t px-6 py-4 flex items-center justify-between">
-            <p className="text-sm text-muted-foreground hidden sm:block">
+          <div className="border-t border-gray-200/50 dark:border-gray-800/50 px-6 py-5 bg-white/40 dark:bg-gray-900/40 flex items-center justify-between">
+            <p className="text-sm font-medium text-muted-foreground hidden sm:block">
               Showing page {pagination.page} of {pagination.totalPages}
             </p>
             <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">

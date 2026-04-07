@@ -204,7 +204,7 @@ function NoteCard({
     note.status === "completed";
 
   return (
-    <Card className="group relative overflow-hidden border transition-all duration-200 hover:border-primary/30 hover:shadow-md">
+    <Card className="group relative overflow-hidden border border-gray-200/50 dark:border-gray-800/50 bg-white/70 dark:bg-gray-900/60 backdrop-blur-xl transition-all duration-300 hover:border-indigo-300 dark:hover:border-indigo-700 hover:-translate-y-1 hover:shadow-xl">
       <div
         className="absolute left-0 right-0 top-0 h-0.5 opacity-70"
         style={{
@@ -723,11 +723,11 @@ export default function NotesPage() {
     <div className="flex-1 space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 className="flex items-center gap-2 text-3xl font-bold tracking-tight">
-            <BookOpen className="h-7 w-7 text-primary" />
-            My Notes
+          <h1 className="flex items-center gap-2 text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white mix-blend-normal">
+            <BookOpen className="h-8 w-8 text-indigo-500" />
+            My Notes.
           </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
+          <p className="mt-2 text-sm text-muted-foreground font-medium">
             {pagination.total > 0
               ? `${pagination.total} note${pagination.total === 1 ? "" : "s"} in your workspace`
               : "Your personal AI-powered knowledge base"}
@@ -756,10 +756,10 @@ export default function NotesPage() {
 
       <div className="flex flex-wrap items-center gap-3">
         <div className="relative min-w-[220px] flex-1">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-indigo-500" />
           <Input
             placeholder="Search notes..."
-            className="pl-9"
+            className="pl-9 bg-white/50 dark:bg-gray-950/50 backdrop-blur-sm border-gray-200/50 dark:border-gray-800/50 focus-visible:ring-indigo-500/50"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />

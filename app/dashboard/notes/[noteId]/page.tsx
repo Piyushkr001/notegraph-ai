@@ -298,7 +298,7 @@ export default function NoteDetailPage() {
         </div>
       </div>
 
-      <Card className="overflow-hidden">
+      <Card className="overflow-hidden border border-gray-200/50 dark:border-gray-800/50 bg-white/80 dark:bg-gray-900/70 backdrop-blur-2xl shadow-lg transition-all duration-300">
         <div
           className="h-1 w-full"
           style={{
@@ -385,7 +385,7 @@ export default function NoteDetailPage() {
       )}
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
+        <Card className="border-gray-200/50 dark:border-gray-800/50 bg-white/50 dark:bg-gray-950/40 backdrop-blur-md shadow-sm hover:shadow-md transition-shadow">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Sparkles className="h-5 w-5 text-primary" />
@@ -405,7 +405,7 @@ export default function NoteDetailPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-gray-200/50 dark:border-gray-800/50 bg-white/50 dark:bg-gray-950/40 backdrop-blur-md shadow-sm hover:shadow-md transition-shadow">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <BookOpen className="h-5 w-5 text-primary" />
@@ -427,7 +427,7 @@ export default function NoteDetailPage() {
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        <Card>
+        <Card className="border-gray-200/50 dark:border-gray-800/50 bg-white/50 dark:bg-gray-950/40 backdrop-blur-md shadow-sm hover:shadow-md transition-shadow">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Tag className="h-5 w-5 text-primary" />
@@ -458,7 +458,7 @@ export default function NoteDetailPage() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-gray-200/50 dark:border-gray-800/50 bg-white/50 dark:bg-gray-950/40 backdrop-blur-md shadow-sm hover:shadow-md transition-shadow">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Workflow className="h-5 w-5 text-primary" />
@@ -474,7 +474,7 @@ export default function NoteDetailPage() {
                 {note.relationships.map((relationship) => (
                   <div
                     key={relationship.id}
-                    className="rounded-lg border bg-muted/30 p-3"
+                    className="rounded-lg border border-indigo-100/50 dark:border-indigo-900/30 bg-white/60 dark:bg-gray-950/40 backdrop-blur-sm p-4 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
                   >
                     <div className="text-sm font-medium">
                       {relationship.sourceTopic}
@@ -497,7 +497,7 @@ export default function NoteDetailPage() {
         </Card>
       </div>
 
-      <Card>
+      <Card className="border-gray-200/50 dark:border-gray-800/50 bg-white/50 dark:bg-gray-950/40 backdrop-blur-md shadow-sm hover:shadow-md transition-shadow">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Brain className="h-5 w-5 text-primary" />
@@ -511,7 +511,7 @@ export default function NoteDetailPage() {
           {note.topics.length > 0 ? (
             <div className="grid gap-4 md:grid-cols-2">
               {note.topics.map((topic) => (
-                <div key={topic.id} className="rounded-xl border p-4">
+                <div key={topic.id} className="rounded-xl border border-indigo-100/50 dark:border-indigo-900/30 bg-white/60 dark:bg-gray-950/40 backdrop-blur-sm p-5 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors">
                   <h3 className="font-semibold">{topic.name}</h3>
                   <p className="mt-2 text-sm leading-6 text-muted-foreground">
                     {topic.description || "No description available."}
@@ -527,7 +527,7 @@ export default function NoteDetailPage() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="border-gray-200/50 dark:border-gray-800/50 bg-white/50 dark:bg-gray-950/40 backdrop-blur-md shadow-sm hover:shadow-md transition-shadow">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <FileText className="h-5 w-5 text-primary" />
@@ -538,7 +538,7 @@ export default function NoteDetailPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="rounded-xl border bg-muted/20 p-4">
+          <div className="rounded-xl border border-gray-200/50 dark:border-gray-800/50 bg-white/60 dark:bg-gray-950/60 p-6 backdrop-blur-sm">
             <pre className="whitespace-pre-wrap wrap-break-word text-sm leading-7 text-muted-foreground">
               {note.rawContent}
             </pre>
