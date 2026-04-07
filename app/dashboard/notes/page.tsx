@@ -51,6 +51,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import toast from "react-hot-toast";
 
 
@@ -361,31 +362,46 @@ function CreateNoteDialog({
   onOpenChange,
   onCreated,
 }: CreateNoteDialogProps) {
+  const [tab, setTab] = useState<"manual" | "ai">("manual");
+  
   const [title, setTitle] = useState("");
   const [rawContent, setRawContent] = useState("");
   const [noteType, setNoteType] = useState<NoteType>("personal");
+  
+  const [aiPrompt, setAiPrompt] = useState("");
+  
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const wordCount = rawContent.trim().split(/\s+/).filter(Boolean).length;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    if (!title.trim() || !rawContent.trim()) return;
+    if (tab === "manual" && (!title.trim() || !rawContent.trim())) return;
+    if (tab === "ai" && !aiPrompt.trim()) return;
 
     setIsSubmitting(true);
 
     try {
-      await axios.post("/api/dashboard/notes", {
-        title,
-        rawContent,
-        noteType,
-      });
-
-      toast.success("Note created and AI processing started");
+      if (tab === "manual") {
+        await axios.post("/api/dashboard/notes", {
+          title,
+          rawContent,
+          noteType,
+        });
+        toast.success("Note created and AI processing started");
+      } else {
+        await axios.post("/api/dashboard/notes/generate", {
+          prompt: aiPrompt,
+          noteType,
+        });
+        toast.success("Note generated and AI processing started");
+      }
 
       setTitle("");
       setRawContent("");
+      setAiPrompt("");
       setNoteType("personal");
+      setTab("manual");
       onOpenChange(false);
       onCreated();
     } catch (error: any) {
@@ -408,94 +424,129 @@ function CreateNoteDialog({
             Create New Note
           </DialogTitle>
           <DialogDescription>
-            Add a note to your workspace. NoteGraph AI will analyze it and
-            generate summaries, topics, tags, and relationships.
+            Add a note to your workspace or let AI write one for you.
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="mt-2 space-y-5">
-          <div className="grid grid-cols-3 gap-4">
-            <div className="col-span-2 space-y-1.5">
-              <Label htmlFor="note-title">Title</Label>
-              <Input
-                id="note-title"
-                placeholder="e.g. Meeting notes for Q1 planning"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-                disabled={isSubmitting}
-                required
-              />
+        <Tabs
+          value={tab}
+          onValueChange={(v) => setTab(v as "manual" | "ai")}
+          className="mt-2"
+        >
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="manual">Write Manually</TabsTrigger>
+            <TabsTrigger value="ai">Generate with AI</TabsTrigger>
+          </TabsList>
+
+          <form onSubmit={handleSubmit} className="mt-4 space-y-5">
+            <div className="grid grid-cols-3 gap-4">
+              {tab === "manual" ? (
+                <div className="col-span-2 space-y-1.5">
+                  <Label htmlFor="note-title">Title</Label>
+                  <Input
+                    id="note-title"
+                    placeholder="e.g. Meeting notes for Q1 planning"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    disabled={isSubmitting}
+                    required={tab === "manual"}
+                  />
+                </div>
+              ) : (
+                <div className="col-span-2" />
+              )}
+
+              <div className="space-y-1.5">
+                <Label htmlFor="note-type">Type</Label>
+                <Select
+                  value={noteType}
+                  onValueChange={(v) => {
+                    if (v) setNoteType(v as NoteType);
+                  }}
+                  disabled={isSubmitting}
+                >
+                  <SelectTrigger id="note-type">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {NOTE_TYPES.map((t) => (
+                      <SelectItem key={t} value={t}>
+                        {TYPE_CONFIG[t].emoji} {TYPE_CONFIG[t].label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="note-type">Type</Label>
-              <Select
-                value={noteType}
-                onValueChange={(v) => {
-                  if (v) setNoteType(v as NoteType);
-                }}
+            <TabsContent value="manual" className="m-0 space-y-1.5">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="note-content">Content</Label>
+                <span className="text-xs text-muted-foreground">
+                  {wordCount} words
+                </span>
+              </div>
+              <Textarea
+                id="note-content"
+                placeholder="Paste or write your note content here..."
+                className="min-h-[200px] resize-y text-sm leading-relaxed"
+                value={rawContent}
+                onChange={(e) => setRawContent(e.target.value)}
+                disabled={isSubmitting}
+                required={tab === "manual"}
+              />
+            </TabsContent>
+
+            <TabsContent value="ai" className="m-0 space-y-1.5">
+              <Label htmlFor="ai-prompt">Topic / Prompt</Label>
+              <Textarea
+                id="ai-prompt"
+                placeholder="E.g. Summarize the differences between React and Vue..."
+                className="min-h-[200px] resize-y text-sm leading-relaxed border-indigo-200 dark:border-indigo-900 focus-visible:ring-indigo-500/50 bg-indigo-50/30 dark:bg-indigo-950/20"
+                value={aiPrompt}
+                onChange={(e) => setAiPrompt(e.target.value)}
+                disabled={isSubmitting}
+                required={tab === "ai"}
+              />
+              <p className="text-xs text-muted-foreground">
+                The AI will write a comprehensive note based on your prompt, save it, and automatically extract knowledge graph relationships.
+              </p>
+            </TabsContent>
+
+            <DialogFooter className="pt-2">
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => onOpenChange(false)}
                 disabled={isSubmitting}
               >
-                <SelectTrigger id="note-type">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  {NOTE_TYPES.map((t) => (
-                    <SelectItem key={t} value={t}>
-                      {TYPE_CONFIG[t].emoji} {TYPE_CONFIG[t].label}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
+                Cancel
+              </Button>
 
-          <div className="space-y-1.5">
-            <div className="flex items-center justify-between">
-              <Label htmlFor="note-content">Content</Label>
-              <span className="text-xs text-muted-foreground">
-                {wordCount} words
-              </span>
-            </div>
-            <Textarea
-              id="note-content"
-              placeholder="Paste or write your note content here..."
-              className="min-h-[200px] resize-y text-sm leading-relaxed"
-              value={rawContent}
-              onChange={(e) => setRawContent(e.target.value)}
-              disabled={isSubmitting}
-              required
-            />
-          </div>
-
-          <DialogFooter>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => onOpenChange(false)}
-              disabled={isSubmitting}
-            >
-              Cancel
-            </Button>
-
-            <Button
-              type="submit"
-              disabled={isSubmitting || !title.trim() || !rawContent.trim()}
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Creating...
-                </>
-              ) : (
-                <>
-                  <Plus className="mr-2 h-4 w-4" />
-                  Create Note
-                </>
-              )}
-            </Button>
-          </DialogFooter>
-        </form>
+              <Button
+                type="submit"
+                disabled={
+                  isSubmitting ||
+                  (tab === "manual" && (!title.trim() || !rawContent.trim())) ||
+                  (tab === "ai" && !aiPrompt.trim())
+                }
+                className={tab === "ai" ? "bg-indigo-600 hover:bg-indigo-700 text-white" : ""}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    {tab === "ai" ? "Generating..." : "Creating..."}
+                  </>
+                ) : (
+                  <>
+                    {tab === "ai" ? <Brain className="mr-2 h-4 w-4" /> : <Plus className="mr-2 h-4 w-4" />}
+                    {tab === "ai" ? "Generate & Structure" : "Create Note"}
+                  </>
+                )}
+              </Button>
+            </DialogFooter>
+          </form>
+        </Tabs>
       </DialogContent>
     </Dialog>
   );

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, FileText, Settings, Activity, User } from "lucide-react";
+import { LayoutDashboard, FileText, Settings, Activity, User, Network } from "lucide-react";
 
 import {
   Sidebar,
@@ -20,6 +20,7 @@ import {
 const dashboardNav = [
   { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
   { name: "My Notes", href: "/dashboard/notes", icon: FileText },
+  { name: "Knowledge Graph", href: "/dashboard/graph", icon: Network },
   { name: "Activity", href: "/dashboard/activity", icon: Activity },
   { name: "Profile", href: "/dashboard/profile", icon: User },
 ];

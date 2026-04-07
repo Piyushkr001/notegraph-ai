@@ -109,6 +109,9 @@ export const notesTable = pgTable(
       withTimezone: true,
     }),
 
+    isAiGenerated: boolean("is_ai_generated").notNull().default(false),
+    prompt: text("prompt"),
+
     isArchived: boolean("is_archived").notNull().default(false),
 
     createdAt: timestamp("created_at", { withTimezone: true })

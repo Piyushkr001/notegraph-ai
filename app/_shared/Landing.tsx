@@ -48,7 +48,7 @@ function Landing() {
         </h1>
 
         <p className="max-w-2xl leading-relaxed text-muted-foreground sm:text-lg md:text-xl dark:text-gray-300">
-          An AI powered note-taking and knowledge management system that connects your thoughts and amplifies your creativity.
+          A cloud-native application utilizing autonomous AI workflows and specialized language agents to automatically process, connect, and synthesize your thoughts.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 mt-8 w-full sm:w-auto">
@@ -72,24 +72,24 @@ function Landing() {
             <div className="h-14 w-14 bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Brain className="h-7 w-7" />
             </div>
-            <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">AI Assistant</h3>
-            <p className="text-gray-500 dark:text-gray-400">Summarize, generate ideas, and interact with your notes natively to unlock new insights.</p>
+            <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Autonomous AI Agents</h3>
+            <p className="text-gray-500 dark:text-gray-400">Utilize cloud code to trigger background agents that automatically tag, summarize, and extract insights without human intervention.</p>
           </div>
 
           <div className="flex flex-col items-center text-center p-8 bg-white/60 dark:bg-gray-900/60 backdrop-blur-md rounded-3xl border border-gray-200/50 dark:border-gray-800/50 shadow-sm hover:shadow-md transition-all group lg:-translate-y-4">
             <div className="h-14 w-14 bg-indigo-100 dark:bg-indigo-900/50 text-indigo-600 dark:text-indigo-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Network className="h-7 w-7" />
             </div>
-            <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Knowledge Graph</h3>
-            <p className="text-gray-500 dark:text-gray-400">Visualize connections and see the big picture across all your related thoughts and documents.</p>
+            <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Agentic Analysis Workflow</h3>
+            <p className="text-gray-500 dark:text-gray-400">A dedicated swarm of language models analyzes semantic structures to map relationships between concepts autonomously across your dashboard.</p>
           </div>
 
           <div className="flex flex-col items-center text-center p-8 bg-white/60 dark:bg-gray-900/60 backdrop-blur-md rounded-3xl border border-gray-200/50 dark:border-gray-800/50 shadow-sm hover:shadow-md transition-all group">
             <div className="h-14 w-14 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
               <Notebook className="h-7 w-7" />
             </div>
-            <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Seamless Editing</h3>
-            <p className="text-gray-500 dark:text-gray-400">A distraction-free, powerful editor designed to keep you focused exclusively on what matters.</p>
+            <h3 className="text-xl font-bold mb-3 text-gray-900 dark:text-white">Serverless Cloud Code</h3>
+            <p className="text-gray-500 dark:text-gray-400">Deployed via highly scalable serverless databases and robust cloud endpoints to securely stream your data payloads to our LLMs.</p>
           </div>
 
         </div>

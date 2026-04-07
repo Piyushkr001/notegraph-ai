@@ -87,17 +87,17 @@ export default function AboutPage() {
               <div className="h-16 w-16 bg-linear-to-br from-purple-500 to-blue-500 rounded-2xl flex items-center justify-center shadow-lg mb-8">
                 <Brain className="h-8 w-8 text-white" />
               </div>
-              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">The NoteGraph Story</h2>
+              <h2 className="text-3xl font-bold mb-4 text-gray-900 dark:text-white">The Agentic Architecture</h2>
               <div className="space-y-4 text-lg text-muted-foreground dark:text-gray-300">
                 <p>
-                  It started with a simple frustration: why does taking notes usually mean burying them in a folder structure where they are never seen again?
+                  It started with a challenge to build something utilizing modern <b>agentic ideas, cloud code, and autonomous workflows</b>—so we set out to solve the ultimate knowledge problem: information overload.
                 </p>
                 <p>
-                  We realized that the human brain doesn't work in rigid hierarchical folders. It works through associative links and semantic connections. 
-                  When LLMs emerged, we saw the missing piece: an engine that could automatically read, tag, and connect raw thoughts the second they were typed.
+                  We realized that scaling human knowledge requires autonomous systems to parse, tag, and organize incoming data streams dynamically seamlessly.
+                  We architected NoteGraph AI utilizing serverless cloud code and a swarm of specialized AI Agents. Every time a note is created, it enters an autonomous background workflow where models like Codex and broader LLMs extract semantic relationships without human intervention.
                 </p>
                 <p>
-                  NoteGraph AI was built to be your silent research partner—quietly organizing the chaos so you can focus exclusively on creativity.
+                  NoteGraph AI is a live, production-ready demonstration of what happens when you combine autonomous agent pipelines with beautiful interface design.
                 </p>
               </div>
             </div>

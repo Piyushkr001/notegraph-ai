@@ -199,6 +199,41 @@ async function callOpenRouter(prompt: string): Promise<AnalysisResult> {
   return normalizeAnalysis(parsed);
 }
 
+export async function generateContent(prompt: string, noteType: string = "personal"): Promise<{ title: string, content: string }> {
+  const response = await openrouter.chat.send({
+    chatRequest: {
+      model: "openai/gpt-4.1-mini",
+      messages: [
+        {
+          role: "system",
+          content: `You are an AI note-writing assistant. Write a detailed, comprehensive note based on the user's prompt. Target note type: ${noteType}.
+Return YOUR EXACT RESPONSE in strict JSON format:
+{
+  "title": "A suitable title for the note",
+  "content": "The full detailed content of the note using markdown."
+}`
+        },
+        {
+          role: "user",
+          content: prompt,
+        },
+      ],
+      temperature: 0.7,
+    }
+  });
+
+  const contentStr = (response as any).choices?.[0]?.message?.content;
+  if (!contentStr || typeof contentStr !== "string") {
+    throw new Error("Empty response from model when generating content.");
+  }
+
+  const parsed = safeJsonParse(contentStr);
+  return {
+    title: parsed.title || "Generated Note",
+    content: parsed.content || "Content could not be generated."
+  };
+}
+
 export async function processNoteById({
   noteId,
   userId,

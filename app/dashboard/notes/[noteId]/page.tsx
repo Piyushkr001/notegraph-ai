@@ -17,12 +17,14 @@ import {
   Tag,
   Workflow,
   X,
+  Network,
 } from "lucide-react";
 import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
+import KnowledgeGraph, { GraphData } from "@/components/graph/KnowledgeGraph";
 import {
   Card,
   CardContent,
@@ -265,6 +267,32 @@ export default function NoteDetailPage() {
   const statusConf = STATUS_CONFIG[note.status];
   const typeConf = TYPE_CONFIG[note.noteType];
 
+  let graphData: GraphData | null = null;
+  if (note.topics.length > 0 || note.relationships.length > 0) {
+    // Map existing topics to nodes based on topic names
+    // It's possible a relationship references a topic not in topics array (model hallucination), 
+    // so we need to collect all unique names.
+    const nodeSet = new Set<string>();
+    note.topics.forEach(t => nodeSet.add(t.name));
+    note.relationships.forEach(r => {
+      nodeSet.add(r.sourceTopic);
+      nodeSet.add(r.targetTopic);
+    });
+
+    const nodes = Array.from(nodeSet).map((name) => {
+      // make the first node larger (assuming it's main topic)
+      return { id: name, name, val: 5 };
+    });
+
+    const links = note.relationships.map(r => ({
+      source: r.sourceTopic,
+      target: r.targetTopic,
+      label: r.relationType
+    }));
+
+    graphData = { nodes, links };
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
@@ -496,6 +524,23 @@ export default function NoteDetailPage() {
           </CardContent>
         </Card>
       </div>
+
+      {graphData && graphData.nodes.length > 0 && (
+        <Card className="col-span-full border border-gray-200/50 dark:border-gray-800/50 bg-white/50 dark:bg-gray-950/40 backdrop-blur-md shadow-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Network className="h-5 w-5 text-primary" />
+              Knowledge Graph
+            </CardTitle>
+            <CardDescription>
+              Interactive visualization of concepts and their relationships
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-0 h-[400px]">
+            <KnowledgeGraph data={graphData} />
+          </CardContent>
+        </Card>
+      )}
 
       <Card className="border-gray-200/50 dark:border-gray-800/50 bg-white/50 dark:bg-gray-950/40 backdrop-blur-md shadow-sm hover:shadow-md transition-shadow">
         <CardHeader>

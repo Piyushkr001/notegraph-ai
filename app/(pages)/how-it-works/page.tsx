@@ -11,35 +11,35 @@ import { cn } from "@/lib/utils";
 const steps = [
   {
     number: "01",
-    title: "Capture Your Thoughts",
-    description: "Start by dumping your ideas, meeting notes, research, or random musings into the distraction-free editor. Don't worry about formatting or organizing folders—just type.",
+    title: "Cloud Code Ingestion",
+    description: "Start by saving your unstructured ideas. Our serverless cloud code instantly routes your data payload securely into the autonomous processing queue without any human bottleneck.",
     icon: <Pencil className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />,
     colorClass: "bg-indigo-100 dark:bg-indigo-900/40 border-indigo-200 dark:border-indigo-800/50",
-    features: ["Markdown support", "Auto-saving", "Focus mode"],
+    features: ["Serverless Architecture", "Secure Payload Routing", "API First"],
   },
   {
     number: "02",
-    title: "AI Analysis & Extraction",
-    description: "The moment you save, Notegraph's AI goes to work. It natively reads your text, identifies core concepts, writes a succinct summary, and tags the note intelligently.",
+    title: "Autonomous Agent Workflow",
+    description: "The moment the payload hits the backend, the workflow triggers. A dedicated swarm of specialized AI agents built on LLMs and Codex spin up to analyze your text asynchronously.",
     icon: <BrainCircuit className="h-6 w-6 text-purple-600 dark:text-purple-400" />,
     colorClass: "bg-purple-100 dark:bg-purple-900/40 border-purple-200 dark:border-purple-800/50",
-    features: ["Automated Summaries", "Smart Tagging", "Entity Recognition"],
+    features: ["Asynchronous Processing", "Agentic Swarm", "Codex Integration"],
   },
   {
     number: "03",
-    title: "Connect the Dots",
-    description: "Your note is seamlessly injected into your overarching Knowledge Graph. The system compares it with your historical notes and draws semantic relationships automatically.",
+    title: "Agentic Topology Mapping",
+    description: "Graph-specific AI agents autonomously compare your new note against your historical database, drawing semantic connections and automatically generating topics without prompts.",
     icon: <Network className="h-6 w-6 text-blue-600 dark:text-blue-400" />,
     colorClass: "bg-blue-100 dark:bg-blue-900/40 border-blue-200 dark:border-blue-800/50",
-    features: ["Visual Graph UI", "Semantic linking", "Topic clustering"],
+    features: ["Semantic Analysis", "Autonomous Tagging", "Entity Resolution"],
   },
   {
     number: "04",
-    title: "Discover Insights",
-    description: "When you need an answer months later, you don't search for exact phrases—you search for meaning. Uncover brilliant connections you never explicitly realized.",
+    title: "Synthesized Output",
+    description: "The completed autonomous pipeline pushes the resulting data back to your dashboard in real-time. Unstructured text is transformed into a highly structured, queryable knowledge graph.",
     icon: <Lightbulb className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />,
     colorClass: "bg-emerald-100 dark:bg-emerald-900/40 border-emerald-200 dark:border-emerald-800/50",
-    features: ["Global Search", "Relationship tracking", "Idea synthesis"],
+    features: ["Structured Data", "Real-Time DB Sync", "Graph UI Update"],
   },
 ];
 
@@ -86,7 +86,7 @@ export default function HowItWorksPage() {
             </SparklesText>
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl dark:text-gray-300">
-            See exactly how Notegraph transforms your raw, unorganized brain dumps into a structured universe of mapped knowledge.
+            See exactly how NoteGraph transforms unstructured string data into an organized dataset using serverless cloud code and agentic AI.
           </p>
         </div>
 
