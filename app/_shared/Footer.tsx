@@ -10,12 +10,10 @@ import { Button } from "@/components/ui/button";
 const productLinks = [
   { name: "Features", href: "/features" },
   { name: "How It Works", href: "/how-it-works" },
-  { name: "Dashboard", href: "/dashboard" },
-  { name: "Pricing", href: "/pricing" },
+  { name: "About", href: "/about" },
 ];
 
 const resourceLinks = [
-  { name: "Documentation", href: "/docs" },
   { name: "Help Center", href: "/help" },
   { name: "Privacy Policy", href: "/privacy-policy" },
   { name: "Terms of Service", href: "/terms-of-service" },
