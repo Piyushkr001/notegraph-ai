@@ -94,10 +94,12 @@ export default function HowItWorksPage() {
         <div className="max-w-5xl mx-auto w-full mb-24 relative group">
           <div className="absolute -inset-1 bg-linear-to-r from-purple-600 via-indigo-600 to-blue-600 rounded-3xl blur-xl opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
           <div className="relative rounded-2xl overflow-hidden border border-gray-200/50 dark:border-gray-800/50 bg-black/5 dark:bg-white/5 aspect-video shadow-2xl flex items-center justify-center">
-            <img 
-              src="/dashboard-demo.webp" 
-              alt="Dashboard Note Creation Demo"
+            <video 
+              src="/Images/Demo.mov" 
               className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
             />
           </div>
         </div>
