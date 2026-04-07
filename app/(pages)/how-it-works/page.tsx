@@ -95,10 +95,10 @@ export default function HowItWorksPage() {
           <div className="absolute -inset-1 bg-linear-to-r from-purple-600 via-indigo-600 to-blue-600 rounded-3xl blur-xl opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
           <div className="relative rounded-2xl overflow-hidden border border-gray-200/50 dark:border-gray-800/50 bg-black/5 dark:bg-white/5 aspect-video shadow-2xl flex items-center justify-center">
             <video 
-              src="/Images/Demo.mov" 
+              src="/Images/Demo.mp4" 
               className="w-full h-full object-cover"
-              autoPlay
-              loop
+              controls
+              playsInline
               muted
             />
           </div>
