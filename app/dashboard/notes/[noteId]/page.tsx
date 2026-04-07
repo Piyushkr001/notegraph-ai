@@ -486,43 +486,6 @@ export default function NoteDetailPage() {
           </CardContent>
         </Card>
 
-        <Card className="border-gray-200/50 dark:border-gray-800/50 bg-white/50 dark:bg-gray-950/40 backdrop-blur-md shadow-sm hover:shadow-md transition-shadow">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Workflow className="h-5 w-5 text-primary" />
-              Relationships
-            </CardTitle>
-            <CardDescription>
-              Connections identified between concepts
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            {note.relationships.length > 0 ? (
-              <div className="space-y-3">
-                {note.relationships.map((relationship) => (
-                  <div
-                    key={relationship.id}
-                    className="rounded-lg border border-indigo-100/50 dark:border-indigo-900/30 bg-white/60 dark:bg-gray-950/40 backdrop-blur-sm p-4 hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors"
-                  >
-                    <div className="text-sm font-medium">
-                      {relationship.sourceTopic}
-                    </div>
-                    <div className="my-1 text-xs uppercase tracking-wide text-muted-foreground">
-                      {relationship.relationType}
-                    </div>
-                    <div className="text-sm font-medium">
-                      {relationship.targetTopic}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ) : (
-              <p className="italic text-muted-foreground/60">
-                No relationships generated yet.
-              </p>
-            )}
-          </CardContent>
-        </Card>
       </div>
 
       {graphData && graphData.nodes.length > 0 && (

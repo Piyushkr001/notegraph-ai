@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@clerk/nextjs/server";
 import { db } from "@/config/db";
-import { topicsTable, relationshipsTable, notesTable } from "@/config/schema";
+import { topicsTable, relationshipsTable, notesTable, usersTable } from "@/config/schema";
 import { eq, inArray } from "drizzle-orm";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function GET(req: NextRequest) {
   try {
@@ -13,11 +15,21 @@ export async function GET(req: NextRequest) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
+    const [dbUser] = await db
+      .select({ id: usersTable.id })
+      .from(usersTable)
+      .where(eq(usersTable.clerkUserId, userId))
+      .limit(1);
+
+    if (!dbUser) {
+      return new NextResponse("User not found", { status: 404 });
+    }
+
     // Get all notes for user
     const userNotes = await db
       .select({ id: notesTable.id })
       .from(notesTable)
-      .where(eq(notesTable.userId, userId));
+      .where(eq(notesTable.userId, dbUser.id));
 
     const noteIds = userNotes.map((n) => n.id);
 
